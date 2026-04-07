@@ -1,0 +1,36 @@
+{
+  "evaluations": {
+    "baseline": {
+      "week1": {
+        "scores": {},
+        "response_length": 3590
+      },
+      "week2": {
+        "scores": {},
+        "response_length": 3159
+      },
+      "week3": {
+        "scores": {},
+        "response_length": 3215
+      }
+    },
+    "skills": {
+      "week1": {
+        "scores": {},
+        "response_length": 4289
+      },
+      "week2": {
+        "scores": {},
+        "response_length": 3293
+      },
+      "week3": {
+        "scores": {},
+        "response_length": 3138
+      }
+    }
+  },
+  "baseline_avg_total": 0,
+  "skills_avg_total": 0,
+  "delta": 0,
+  "timestamp": "2026-04-07T12:34:56.913452+00:00"
+}

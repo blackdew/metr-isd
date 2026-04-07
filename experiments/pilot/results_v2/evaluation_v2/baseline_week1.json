@@ -1,0 +1,10 @@
+{
+  "completion": 3,
+  "style": 5,
+  "comprehension": 5,
+  "instruction_following": 3,
+  "condition": "baseline",
+  "week": 1,
+  "title": "학습자 분석",
+  "response_length": 3590
+}

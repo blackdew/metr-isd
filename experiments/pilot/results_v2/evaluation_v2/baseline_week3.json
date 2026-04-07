@@ -1,0 +1,12 @@
+{
+  "scores": {
+    "faithfulness_to_input": 5,
+    "structure_and_coherence": 5,
+    "instructional_design_quality": 5,
+    "completeness": 5
+  },
+  "condition": "baseline",
+  "week": 3,
+  "title": "학습목표 설계",
+  "response_length": 3215
+}
