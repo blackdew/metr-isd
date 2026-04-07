@@ -11,3 +11,4 @@ __pycache__/
 
 # Backups
 experiments/pilot/seed_skills_backup/
+*.egg-info/
