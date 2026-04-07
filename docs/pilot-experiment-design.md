@@ -1,8 +1,8 @@
 # ISD-Bench 파일럿 실험 설계서
 
-**작성일**: 2026-04-06
-**버전**: v1.0
-**관련 GitHub Issues**: #1, #2, #3
+**작성일**: 2026-04-06 (v3 업데이트: 2026-04-07)
+**버전**: v1.1
+**관련 GitHub Issues**: #1, #2, #3, #4
 
 ---
 
@@ -192,14 +192,23 @@ MetaClaw의 Evolver 기능이 ISD 도메인에서 실패 사례를 기반으로 
 
 ### 6.2 Evolver 설정
 
-| 항목 | 설정값 |
-|------|--------|
-| Evolver LLM | Gemini 2.5 Flash |
-| 합성 트리거 조건 | 태스크 실패 또는 낮은 자기 평가 점수 |
-| Skill 저장 경로 | MetaClaw 기본 skill store |
-| 관찰 지표 | 합성된 skill의 이름, 설명, 내용의 ISD 도메인 관련성 |
+> **v3 업데이트 (2026-04-07)**: 초기 설정 오류로 evolution이 트리거되지 않았으나, 아래 설정으로 해결됨.
 
-Evolver는 에이전트가 태스크 수행 중 스스로 부족하다고 판단할 때 새로운 Skill을 생성·저장하는 메커니즘이다. 실험 3에서는 Week 5~7 수준의 난이도 높은 태스크를 의도적으로 제시하여 Evolver를 활성화시킨다.
+| 항목 | 초기 설정 (실패) | v3 수정 설정 (성공) |
+|------|----------------|-------------------|
+| `enable_skill_evolution` | `skills.auto_evolve = true` (잘못된 필드명) | `enable_skill_evolution = true` |
+| `skill_evolution_every_n_turns` | 미설정 (기본 10) | `3` |
+| Evolver LLM | Gemini 2.5 Flash (직접 호출 시도 → 403) | Gemini 2.5 Pro (MetaClaw 프록시 경유) |
+| `evolver_api_base` | 미설정 | `http://localhost:30000/v1` |
+| `evolver_api_key` | 미설정 | `metaclaw` |
+| session_id | 매 호출마다 자동 생성 | `isd-evolution-v3` (고정) |
+| turn_type | 미명시 (기본값 `"side"`) | `main` (명시) |
+| session_done | 미사용 | 마지막 턴에 `true` |
+
+**핵심 주의사항**:
+1. `session_id`를 명시하면 `turn_type` 기본값이 `"side"`가 되어 evolution 버퍼에 쌓이지 않음 → 반드시 `turn_type=main` 명시
+2. skills_only 모드에서 evolution은 PRM 없이 패턴 분석(`reward=0.0`)으로 동작 — PRM 불필요
+3. Evolution은 비동기 실행 — 스크립트 종료 후 skill 파일 생성 확인 필요
 
 ### 6.3 실패 유도 태스크
 
