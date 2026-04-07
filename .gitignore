@@ -1,5 +1,13 @@
 # Cloned repositories
 MetaClaw/
 
+# Python
+__pycache__/
+*.pyc
+.venv/
+
 # OS
 .DS_Store
+
+# Backups
+experiments/pilot/seed_skills_backup/
