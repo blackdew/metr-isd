@@ -44,7 +44,7 @@ Gemini 2.5 Pro + MetaClaw skills_only 모드로 Week 1~3 ISD 태스크 파일럿
 - Week 2~3에서는 **이전 산출물 체이닝**이 skill보다 품질에 더 큰 영향
 - 평가: Claude 독립 평가 (Gemini 자기 평가는 전원 만점 → 자기 평가 편향 확인)
 
-상세: [`docs/pilot-experiment-results-v2.md`](docs/pilot-experiment-results-v2.md)
+상세: [`docs/pilot-experiment-results.md`](docs/pilot-experiment-results.md)
 
 ## 프로젝트 구조
 
@@ -57,7 +57,7 @@ metr-isd/
 ├── 2603.17187v1.pdf               # [Ref] MetaClaw - An Agent That Meta-Learns and Evolves in the Wild
 ├── docs/                          # 실험 설계/결과 문서
 │   ├── pilot-experiment-design.md #   파일럿 실험 설계서
-│   ├── pilot-experiment-results-v2.md # 파일럿 결과 (Claude 평가)
+│   ├── pilot-experiment-results.md    # 파일럿 최종 결과 보고서
 │   ├── metaclaw-pilot-report.md   #   MetaClaw 실행 가능성 검증
 │   └── evaluation-rubric.md       #   ISD 평가 루브릭 (5기준 × 5점)
 ├── experiments/pilot/             # 파일럿 실험 코드 및 데이터

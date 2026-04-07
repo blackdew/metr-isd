@@ -224,28 +224,19 @@ ISD-Bench에서 차용 가능한 구조:
 
 ---
 
-## 6. 현재 제약사항 및 다음 단계
+## 6. 제약사항 및 해결 현황
 
-### 6.1 현재 제약사항
-
-| 제약 | 영향 | 해결 방안 |
-|------|------|---------|
-| Skill evolver 비활성 | 실패에서 자동 skill 합성 불가 | Gemini를 evolver로 설정하거나 OpenAI API 키 추가 |
-| 토큰 사용량 미보고 | 비용 추적 불가 | Gemini API 콘솔에서 직접 확인 |
-| OAuth 토큰 만료 | 장시간 실험 시 중단 가능 | refresh_token 기반 갱신 스크립트 작성 |
-| Memory 비활성 | 세션 간 맥락 미유지 | `metaclaw config memory.enabled true`로 활성화 가능 |
-
-### 6.2 추천 다음 단계
-
-1. **Skill evolver 활성화**: Gemini를 evolver LLM으로 설정하여 ISD 태스크 실패 시 자동 skill 합성 테스트
-2. **ISD seed skill 작성**: Dick & Carey 모형 기반 ISD 핵심 원칙을 seed skill로 사전 주입
-3. **ISD 태스크 시퀀스 시험**: Week 1~3 태스크를 순차적으로 보내면서 skill 축적 + 산출물 품질 변화 관찰
-4. **MetaClaw-Bench 실행**: 기존 CLI 벤치마크를 돌려보며 평가 파이프라인 구조 학습
-5. **ISD-Bench 프로토타입**: MetaClaw-Bench 구조를 참고하여 ISD-Bench의 `all_tests.json` + 채점 스크립트 초안 작성
+| 제약 | 상태 | 해결 방법 |
+|------|:---:|---------|
+| Skill evolver 초기화 실패 | **해결** | `enable_skill_evolution=true` + `evolver_api_base/key/model` config 설정 |
+| 프롬프트 오염 (OpenClaw CLI 맥락 주입) | **해결** | `turn_type=tool`로 skill injection 우회, ISD skill을 system prompt에 직접 포함 |
+| Evolution 미트리거 | **해결** | `session_id` 사용 시 `turn_type=main` 명시 (기본값 `"side"` 함정 회피) |
+| 토큰 사용량 미보고 | 미해결 | Gemini OAuth 경로에서 usage 필드 0 반환. 별도 계측 필요 |
+| OAuth 토큰 만료 | 미해결 | 장시간 실험 시 refresh_token 기반 갱신 필요 |
 
 ---
 
-## 부록: 실행 환경 상세
+## 부록: 실행 환경
 
 ```
 OS: macOS Darwin 25.3.0 (arm64)
@@ -253,7 +244,7 @@ Python: 3.13.12 (arm64, /opt/homebrew/opt/python@3.13)
 PyTorch: 2.11.0 (CPU-only)
 MetaClaw: 0.4.1.2 (editable install)
 Gemini CLI: 0.36.0
-venv 위치: /Users/sookbunlee/work/metr-isd/MetaClaw/.venv/
-설정 파일: ~/.metaclaw/config.yaml
-Skills 디렉토리: ~/.metaclaw/skills/ (비어 있음)
+venv: MetaClaw/.venv/
+설정: ~/.metaclaw/config.yaml
+Skills: ~/.metaclaw/skills/ (8개 자동 합성 skill 보유)
 ```
